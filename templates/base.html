@@ -1,0 +1,131 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://unpkg.com/buijs/lib/latest/bui.css"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- bui.js 依赖于Zepto或jQuery -->
+    <script src="{% static 'jQuery3.3.1.js' %}"></script>
+    <script src="https://unpkg.com/buijs/lib/latest/bui.js"></script>
+    {% block head %}
+        <title>title</title>
+    {% endblock %}
+    <style>
+        .bui-dialog-foot-nav {
+            bottom: 1rem;
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- 侧滑栏的父层, -->
+<div id="sidebarWrap" class="bui-sidebar-wrap">
+	<!-- 侧滑菜单 -->
+	<div class="bui-sidebar swiperight">
+		<ul class="bui-list">
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="primary-reverse">【通知】</span>这里放通知消息</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="warning-reverse">【通知】</span>这里放通知消息</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="success-reverse">【通知】</span>这里放通知消息</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+
+        </ul>
+	</div>
+	<!-- 正文内容 -->
+
+
+<div class="bui-page">
+    <header>
+        <div class="bui-bar">
+            <div class="bui-bar-left">
+                <a class="bui-btn btn-back"><i class="icon-back"></i></a>
+
+            </div>
+            <div class="bui-bar-main">{% block title %}
+
+            {% endblock %}</div>
+            <div class="bui-bar-right bui-bar-text">
+				<a class="bui-btn-inline" ><i class="icon-menu"></i></a>
+			</div>
+        </div>
+
+    </header>
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        <ul class="bui-nav">
+            <li class="bui-btn bui-box-vertical active"><i class="icon-home"></i>
+                <div class="span1">首页</div>
+            </li>
+            <li class="bui-btn bui-box-vertical"><i class="icon-fav"></i>
+                <div class="span1">收藏</div>
+            </li>
+            <li class="bui-btn bui-box-vertical bui-btn-face"><i class="icon-face"></i>
+                <div class="span1">个人中心</div>
+            </li>
+        </ul>
+    </footer>
+</div>
+</div>
+
+
+
+{% block js %}
+
+{% endblock %}
+<script>
+    bui.ready(function () {
+
+        var uiSidebar = bui.sidebar({
+        id: "#sidebarWrap", //菜单的ID(必须)
+        width: 644,
+        trigger: "#menu"
+    });
+
+        var pageview = {};
+
+        // 页面初始化定义
+        pageview.init = function () {
+
+            // 底部菜单
+            var uiDialogNav = bui.dialog({
+                id: "#uiDialogNav",
+                position: "bottom",
+                effect: "fadeInUp",
+                mask: false
+            });
+
+            $(".bui-btn-more").on("click", function (e) {
+                if (uiDialogNav.isOpen()) {
+                    uiDialogNav.close();
+                    return;
+                }
+                uiDialogNav.open();
+            })
+        };
+
+        // 初始化
+        pageview.init();
+
+        return pageview;
+    })
+</script>
+
+</body>
+</html>
